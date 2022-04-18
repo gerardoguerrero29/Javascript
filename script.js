@@ -89,3 +89,4 @@ let eliminar=prompt("ingrese que habitacion desea eliminar");
 borrar(eliminar);
 alert(`el array resultante es ${hab}`);
 
+//prueba comentario
