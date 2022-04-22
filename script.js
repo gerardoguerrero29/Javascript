@@ -71,7 +71,7 @@ function cargarHab(hab) {
     alert(`el array ingresado es ${hab}`);
 }
 
-const borrarhab = (hab) => {
+const borrarHab = (hab) => {
     
     let eliminar = prompt("ingrese que habitacion desea eliminar");
     let i = hab.indexOf(eliminar);
@@ -86,7 +86,9 @@ const borrarhab = (hab) => {
 
 const cotizador = document.querySelector("#ctz");
 const habitaciones = document.querySelector("#hab");
-let hab = [];
+const bohab = document.querySelector("#bohab");
+const hab = [];
 
 cotizador.onclick= ()=> {cotizar()};
 habitaciones.addEventListener("click",cargarHab);
+bohab.addEventListener("click",borrarHab);
