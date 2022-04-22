@@ -92,3 +92,7 @@ const hab = [];
 cotizador.onclick= ()=> {cotizar()};
 habitaciones.addEventListener("click",cargarHab);
 bohab.addEventListener("click",borrarHab);
+
+cotizador.addEventListener("mouseover",()=>{
+    console.log("pasaste por cotizador");
+})
