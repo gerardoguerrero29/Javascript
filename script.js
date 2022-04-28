@@ -60,7 +60,7 @@ function cotizar() {
     } while (opcion != "x");
 }
 
-function cargarHab(hab) {
+function cargarHab() {
     
     for (let i = 0; i < 4; i++) {
         const habitacion = prompt("ingrese 4 habitaciones");
@@ -71,7 +71,7 @@ function cargarHab(hab) {
     alert(`el array ingresado es ${hab}`);
 }
 
-const borrarHab = (hab) => {
+const borrarHab = () => {
     
     let eliminar = prompt("ingrese que habitacion desea eliminar");
     let i = hab.indexOf(eliminar);
