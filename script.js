@@ -5,26 +5,8 @@
 
 // declaro funciones
 
-function termosuelo() {
-    let ancho = parseInt(prompt("ingresa el ancho de la habitacion"));
-    let largo = parseInt(prompt("ingresa el largo de la habitacion"));
-    let area = ancho * largo;
-    let costo = area * 23.50;
-    alert(`El costo de Termosuelo para tu habitacion de ${area} M2 es de U$D ${costo} + IVA`);
-}
-function bombaDeCalor() {
-    let ancho = parseInt(prompt("ingresa el ancho de la Piscina"));
-    let largo = parseInt(prompt("ingresa el largo de la Piscina"));
-    let profundidad = parseInt(prompt("la profundidad de la Piscina"));
-    let volumen = ancho * largo * profundidad;
-    let costo = 0;
-    if (volumen > 200) {
-        costo = 1500 + (volumen * 10.50);
-    } else {
-        costo = 800 + (volumen * 10.50);
-    }
-    alert(`El costo de Bomba de calor para tu piscina de ${volumen * 1000} Litros es de U$D ${costo} + IVA`);
-}
+/*
+
 
 function cotizar() {
 
@@ -61,18 +43,18 @@ function cotizar() {
 }
 
 function cargarHab() {
-    
+
     for (let i = 0; i < 4; i++) {
         const habitacion = prompt("ingrese 4 habitaciones");
         hab.push(habitacion);
         console.log(hab)
     }
-    
+
     alert(`el array ingresado es ${hab}`);
 }
 
 const borrarHab = () => {
-    
+
     let eliminar = prompt("ingrese que habitacion desea eliminar");
     let i = hab.indexOf(eliminar);
     if (i == -1) {
@@ -89,10 +71,99 @@ const habitaciones = document.querySelector("#hab");
 const bohab = document.querySelector("#bohab");
 const hab = [];
 
-cotizador.onclick= ()=> {cotizar()};
-habitaciones.addEventListener("click",cargarHab);
-bohab.addEventListener("click",borrarHab);
+cotizador.onclick = () => { cotizar() };
+habitaciones.addEventListener("click", cargarHab);
+bohab.addEventListener("click", borrarHab);
 
-cotizador.addEventListener("mouseover",()=>{
+cotizador.addEventListener("mouseover", () => {
     console.log("pasaste por cotizador");
 })
+
+*/
+
+
+//tomo los datos del usuario
+
+const select = document.querySelector("#selectProducto");
+const ancho = document.querySelector("#ancho");
+const largo = document.querySelector("#largo");
+const btnCotizar = document.querySelector("#ctz");
+
+let inputTipo = select.onchange = () => {
+    inputTipo = select.value;
+    console.log(`el usuario selecciono ${inputTipo}`);
+}
+
+let inputAncho = ancho.onchange = () => {
+    inputAncho = parseFloat(ancho.value);
+    console.log(inputAncho);
+}
+
+let inputLargo = largo.onchange = () => {
+    inputLargo = parseFloat(largo.value);
+    console.log(inputLargo);
+}
+
+//declaro funciones para cotizar
+
+function termosuelo() {
+    let ancho = inputAncho;
+    let largo = inputLargo;
+    let area = ancho * largo;
+    let costo = area * 23.50;
+    alert(`El costo de Termosuelo para tu habitacion de ${area} M2 es de U$D ${costo} + IVA`);
+}
+function bombaDeCalor() {
+    let ancho = inputAncho;
+    let largo = inputLargo;
+    let profundidad = 1.40;
+    let volumen = ancho * largo * profundidad;
+    let costo = 0;
+    if (volumen > 200) {
+        costo = 1500 + (volumen * 10.50);
+    } else {
+        costo = 800 + (volumen * 10.50);
+    }
+    alert(`El costo de Bomba de calor para tu piscina de ${volumen * 1000} Litros es de U$D ${costo} + IVA`);
+}
+
+//lanzo la cotizacion y almaceno el objeto en el array y en el local storage
+
+const listaProductos = JSON.parse(localStorage.getItem("productos")) || [];
+
+class Producto {
+    constructor(tipo, ancho, largo) {
+        this.tipo = tipo;
+        this.ancho = ancho;
+        this.largo = largo;
+    }
+}
+const nuevoProducto = () => {
+    let tipo = inputTipo;
+    let ancho = inputAncho;
+    let largo = inputLargo;
+    let producto = new Producto(tipo, ancho, largo);
+    listaProductos.push(producto);
+    console.log("producto almacenado en el array");
+    localStorage.setItem("productos", JSON.stringify(listaProductos));
+    console.log("producto almacenado en el storage");
+}
+
+
+btnCotizar.onclick = (e) => {
+    e.preventDefault();
+    switch (inputTipo) {
+        case "termosuelo":
+            nuevoProducto();
+            termosuelo();
+            break;
+
+        case "bombaDeCalor":
+            nuevoProducto();
+            bombaDeCalor();
+            break;
+
+        default: alert("seleccione un producto para cotizar");
+            break;
+    }
+}

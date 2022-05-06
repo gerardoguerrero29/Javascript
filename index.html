@@ -1,17 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Entregable Agregar eventos</title>
+    <title>Entregable 2 Proyecto Final</title>
 </head>
-<body>
 
-    <button id="ctz">Iniciar Cotizador</button>
-    <button id="hab">Generar Habitaciones </button>
-    <button id="bohab">Borrar Habitaciones </button>
+<body>
+    <div>
+        <select id="selectProducto">
+            <option value="" selected disabled> Por favor seleccione un Producto</option>
+            <option value="termosuelo">Termosuelo</option>
+            <option value="bombaDeCalor">Climatizacion de Piscinas</option>
+        </select>
+    </div><br>
+
+    <div>
+        <form action="" id="form">
+            <label for="ancho">Ancho [m]:</label><br>
+            <input type="float" id="ancho" name="ancho"><br>
+            <label for="ancho">Largo [m]:</label><br>
+            <input type="float" id="largo" name="largo"><br>
+
+            <br><button id="ctz">Cotizar</button>
+        </form>
+    </div>
 
     <script src="./script.js"></script>
 </body>
+
 </html>
