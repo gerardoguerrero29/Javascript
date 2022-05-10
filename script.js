@@ -111,7 +111,14 @@ function termosuelo() {
     let largo = inputLargo;
     let area = ancho * largo;
     let costo = area * 23.50;
-    alert(`El costo de Termosuelo para tu habitacion de ${area} M2 es de U$D ${costo} + IVA`);
+    swal({
+        text: `El costo de Termosuelo para tu habitacion de ${area} M2 es de U$D ${costo} + IVA`,
+        // NO PUEDO HACER QUE ESTO FUNCIONE ---> iconHtml: '<img src="https://www.climatizacion-sustentable.com/wp-content/uploads/2021/06/termosuelo.jpg">' ,
+        imageWidth: 200,
+        imageHeight: 200,
+        imageAlt: 'termosuelo',
+        icon: "success",
+    });
 }
 function bombaDeCalor() {
     let ancho = inputAncho;
@@ -124,7 +131,15 @@ function bombaDeCalor() {
     } else {
         costo = 800 + (volumen * 10.50);
     }
-    alert(`El costo de Bomba de calor para tu piscina de ${volumen * 1000} Litros es de U$D ${costo} + IVA`);
+    swal({
+        text: `El costo de Bomba de calor para tu piscina de ${volumen * 1000} Litros es de U$D ${costo} + IVA`,
+        // NO PUEDO HACER QUE ESTO FUNCIONE ---> iconHtml: '<img src="https://www.climatizacion-sustentable.com/wp-content/uploads/2021/06/wega-logo-web.jpg">' ,
+        imageWidth: 200,
+        imageHeight: 200,
+        imageAlt: 'Bomba de Calor',
+        icon: "success",
+    });
+
 }
 
 //lanzo la cotizacion y almaceno el objeto en el array y en el local storage
@@ -163,7 +178,7 @@ btnCotizar.onclick = (e) => {
             bombaDeCalor();
             break;
 
-        default: alert("seleccione un producto para cotizar");
+        default: swal({text: "seleccione un producto para cotizar", icon: "error"});
             break;
     }
 }
