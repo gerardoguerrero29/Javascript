@@ -188,10 +188,23 @@ const obtenerCotizacion = () => {
         .then(response => response.json())
         .then((cotizacion)=>{
             console.log(cotizacion);
-            let oficial=cotizacion;
-            let blue=cotizacion;
-            console.log(oficial);
-            console.log(blue);
             
+            let cotiz=cotizacion;
+
+            cotizacion.forEach(cot =>{
+
+                console.log(cot.casa.nombre);
+                console.log(cot.casa.compra); 
+                console.log(cot.casa.venta);               
+            })
+
+            console.log(cotiz)
+
+            // let oficial=parseInt(cotizacion);
+            // let blue=cotizacion.compra;
+            // console.log(oficial);
+            // console.log(blue);  
         })
 }
+
+obtenerCotizacion();
