@@ -178,7 +178,20 @@ btnCotizar.onclick = (e) => {
             bombaDeCalor();
             break;
 
-        default: swal({text: "seleccione un producto para cotizar", icon: "error"});
+        default: swal({ text: "seleccione un producto para cotizar", icon: "error" });
             break;
     }
+}
+
+const obtenerCotizacion = () => {
+    fetch("https://www.dolarsi.com/api/api.php?type=valoresprincipales")
+        .then(response => response.json())
+        .then((cotizacion)=>{
+            console.log(cotizacion);
+            let oficial=cotizacion;
+            let blue=cotizacion;
+            console.log(oficial);
+            console.log(blue);
+            
+        })
 }
