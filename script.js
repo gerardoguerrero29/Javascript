@@ -88,6 +88,7 @@ const select = document.querySelector("#selectProducto");
 const ancho = document.querySelector("#ancho");
 const largo = document.querySelector("#largo");
 const btnCotizar = document.querySelector("#ctz");
+const tc = document.querySelector("#tc")
 
 let inputTipo = select.onchange = () => {
     inputTipo = select.value;
@@ -186,24 +187,17 @@ btnCotizar.onclick = (e) => {
 const obtenerCotizacion = () => {
     fetch("https://www.dolarsi.com/api/api.php?type=valoresprincipales")
         .then(response => response.json())
-        .then((cotizacion)=>{
+        .then((cotizacion) => {
             console.log(cotizacion);
-            
-            let cotiz=cotizacion;
 
-            cotizacion.forEach(cot =>{
+            for (let i = 0; i < 2; i++) {
+                console.log(cotizacion[i]);
 
-                console.log(cot.casa.nombre);
-                console.log(cot.casa.compra); 
-                console.log(cot.casa.venta);               
-            })
-
-            console.log(cotiz)
-
-            // let oficial=parseInt(cotizacion);
-            // let blue=cotizacion.compra;
-            // console.log(oficial);
-            // console.log(blue);  
+                tc.innerHTML += `
+                <h3> ${cotizacion[i].nombre} </h3>
+                <p> TC compra $${cotizacion[i].compra} TC Venta $${cotizacion[i].Venta} </p>
+                `
+            }
         })
 }
 
