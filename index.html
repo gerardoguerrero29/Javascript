@@ -5,33 +5,64 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Entregable 3 Proyecto Final</title>
+    <title>Proyecto Final - Cotizador CS</title>
+    <link rel="icon"
+        href="https://www.climatizacion-sustentable.com/wp-content/uploads/2019/02/cropped-flavicon-web-192x192.png"
+        sizes="192x192">
+    <style>
+        .flexContainer {
+            display: flex;
+            margin: 1rem;
+            justify-content: space-evenly;
+        }
+
+        .tipoCambio {
+            border: solid;
+            margin: 1rem;
+            background-color: rgb(100, 237, 180);
+
+        }
+        
+        .lista img{
+            width:3rem;
+            height:3rem;
+        }
+
+        .lista{
+            text-transform: uppercase;
+        }
+
+    </style>
 </head>
 
 <body>
-    <div>
-        <select id="selectProducto">
-            <option value="" selected disabled> Por favor seleccione un Producto</option>
-            <option value="termosuelo">Termosuelo</option>
-            <option value="bombaDeCalor">Climatizacion de Piscinas</option>
-        </select>
-    </div><br>
 
-    <div>
-        <form action="" id="form">
-            <label for="ancho">Ancho [m]:</label><br>
-            <input type="float" id="ancho" name="ancho"><br>
-            <label for="ancho">Largo [m]:</label><br>
-            <input type="float" id="largo" name="largo"><br>
+    <img src="https://www.climatizacion-sustentable.com/wp-content/uploads/2019/02/logo-web-nueva.png" alt="Logo CS">
+    <hr>
 
-            <br><button id="ctz">Cotizar</button>
-        </form>
+    <div class="flexContainer">
+        <div class="formulario">
+            <select id="selectProducto">
+                <option value="" selected disabled> Por favor seleccione un Producto</option>
+                <option value="termosuelo">Termosuelo</option>
+                <option value="bombaDeCalor">Climatizacion de Piscinas</option>
+            </select>
+            <form action="" id="form">
+                <br>
+                <label for="ancho">Ancho [m]:</label><br>
+                <input type="float" id="ancho" name="ancho"><br>
+                <label for="ancho">Largo [m]:</label><br>
+                <input type="float" id="largo" name="largo"><br>
+
+                <br><button id="ctz">Cotizar</button><button>Actualizar</button><button id="clear">Borrar</button>
+            </form>
+        </div>
+
+        
+        <div id="tc" class="flexContainer"></div>
     </div>
-
+    
     <div id="ambientes"></div>
-
-    <div id="tc"></div>
-
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="./script.js"></script>

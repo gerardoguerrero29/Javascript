@@ -10,7 +10,8 @@ const select = document.querySelector("#selectProducto");
 const ancho = document.querySelector("#ancho");
 const largo = document.querySelector("#largo");
 const btnCotizar = document.querySelector("#ctz");
-const ambientes= document.querySelector("ambientes");
+const btnClear = document.querySelector("#clear")
+const ambientes = document.querySelector("#ambientes");
 const tc = document.querySelector("#tc")
 
 let inputTipo = select.onchange = () => {
@@ -72,21 +73,19 @@ function bombaDeCalor() {
 const listaProductos = JSON.parse(localStorage.getItem("productos")) || [];
 
 class Producto {
-    constructor(tipo, ancho, largo, preciousd, precioars) {
+    constructor(tipo, ancho, largo, preciousd) {
         this.tipo = tipo;
         this.ancho = ancho;
         this.largo = largo;
-        this.preciousd=preciousd;
-        this.precioars=precioars;
+        this.preciousd = preciousd;
     }
 }
-const nuevoProducto = () => {
+const nuevoProducto = (funcioncotizadora) => {
     let tipo = inputTipo;
-    let ancho = inputAncho;
-    let largo = inputLargo;
-    let precioars=0;
-    let preciousd=0;
-    let producto = new Producto(tipo, ancho, largo, preciousd, precioars);
+    let ancho = parseFloat(inputAncho);
+    let largo = parseFloat(inputLargo);
+    let preciousd = funcioncotizadora;
+    let producto = new Producto(tipo, ancho, largo, preciousd);
     listaProductos.push(producto);
     console.log("producto almacenado en el array");
     localStorage.setItem("productos", JSON.stringify(listaProductos));
@@ -95,16 +94,15 @@ const nuevoProducto = () => {
 
 
 btnCotizar.onclick = (e) => {
-    e.preventDefault();
+
+    e.preventDefault()
     switch (inputTipo) {
         case "termosuelo":
-            nuevoProducto();
-            this.producto.preciousd=termosuelo()
+            nuevoProducto(termosuelo());
             break;
 
         case "bombaDeCalor":
-            nuevoProducto();
-            bombaDeCalor();
+            nuevoProducto(bombaDeCalor());
             break;
 
         default: swal({ text: "seleccione un producto para cotizar", icon: "error" });
@@ -112,22 +110,53 @@ btnCotizar.onclick = (e) => {
     }
 }
 
-const obtenerCotizacion = () => {
-    fetch("https://www.dolarsi.com/api/api.php?type=valoresprincipales")
-        .then(response => response.json())
-        .then((cotizacion) => {
-            console.log(cotizacion);
-            for (let i = 0; i < 2; i++) {
-                console.log(cotizacion[i]);
-
-                tc.innerHTML += `
-                <h3> ${cotizacion.nombre} </h3>
-                <p> TC compra $${cotizacion.compra} TC Venta $${cotizacion.Venta} </p>
-                `
-                console.log(cotizacion[i].nombre)
-
-            }
-        })
+btnClear.onclick = (e) => {
+    e.preventDefault()
+    let lista = JSON.parse(localStorage.getItem("productos") || []);
+    lista.splice(lista.length - 1, 1)
+    localStorage.setItem("productos", JSON.stringify(lista));
 }
 
-obtenerCotizacion();
+
+
+
+const printCotizacion = () => {
+    fetch("https://www.dolarsi.com/api/api.php?type=valoresprincipales")
+        .then((response) => response.json())
+        .then(data => cotizacion = data)
+        .then((data) => {
+
+            for (let i = 0; i < 2; i++) {
+                console.log(data[i]);
+
+                tc.innerHTML += `
+            <div class="tipoCambio"><h3> ${data[i].casa.nombre} </h3>
+            <p> TC compra $${data[i].casa.compra} </p>
+            <p> TC Venta $${data[i].casa.venta} </p></div>
+            `
+            }
+        })
+
+}
+
+const printAmbientes = () => {
+    let lista = JSON.parse(localStorage.getItem("productos") || []);
+
+    console.log(lista)
+
+    for (const producto of lista) {
+
+        if (producto.tipo == "termosuelo") {
+            ambientes.innerHTML += `
+        <li class="lista"> <img src="https://www.climatizacion-sustentable.com/wp-content/uploads/2021/06/termosuelo.jpg" alt="termosuelo"> ${producto.tipo} - Superficie ${producto.ancho * producto.largo}M2   --> Costo U$d Oficial $${producto.preciousd}  </li>
+        `
+        } else {
+            ambientes.innerHTML += `
+            <li class="lista"> <img src="https://www.climatizacion-sustentable.com/wp-content/uploads/2021/06/wega-logo-web.jpg" alt="bba calor"> ${producto.tipo} - Volumen ${producto.ancho * producto.largo*1.4*1000} l   --> Costo U$d Oficial $${producto.preciousd}  </li>
+            `
+        }
+    }
+};
+
+printCotizacion();
+printAmbientes();
