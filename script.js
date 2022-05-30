@@ -20,13 +20,21 @@ let inputTipo = select.onchange = () => {
 }
 
 let inputAncho = ancho.onchange = () => {
-    inputAncho = parseFloat(ancho.value);
-    console.log(inputAncho);
+    if (isNaN(ancho.value)) {
+        swal({ text: "Ingrese un numero", icon: "error" });
+    } else {
+        inputAncho = parseFloat(ancho.value);
+        console.log(inputAncho);
+    }
 }
 
 let inputLargo = largo.onchange = () => {
-    inputLargo = parseFloat(largo.value);
-    console.log(inputLargo);
+    if (isNaN(largo.value)) {
+        swal({ text: "Ingrese un numero", icon: "error" });
+    } else {
+        inputLargo = parseFloat(largo.value);
+        console.log(inputLargo);
+    }
 }
 
 //declaro funciones para cotizar
@@ -94,22 +102,26 @@ const nuevoProducto = (funcioncotizadora) => {
 
 
 btnCotizar.onclick = (e) => {
-
     e.preventDefault()
-    switch (inputTipo) {
-        case "termosuelo":
-            nuevoProducto(termosuelo());
-            break;
 
-        case "bombaDeCalor":
-            nuevoProducto(bombaDeCalor());
-            break;
+    if (isNaN(inputLargo) || isNaN(inputAncho)) {
+        swal({ text: "Ingrese unicamente numeros", icon: "error" })
+    } else {
+        switch (inputTipo) {
+            case "termosuelo":
+                nuevoProducto(termosuelo());
+                break;
 
-        default: swal({ text: "seleccione un producto para cotizar", icon: "error" });
-            break;
+            case "bombaDeCalor":
+                nuevoProducto(bombaDeCalor());
+                break;
+
+            default: swal({ text: "seleccione un producto para cotizar", icon: "error" });
+                break;
+        }
     }
-}
 
+}
 btnClear.onclick = (e) => {
     e.preventDefault()
     let lista = JSON.parse(localStorage.getItem("productos") || []);
@@ -152,7 +164,7 @@ const printAmbientes = () => {
         `
         } else {
             ambientes.innerHTML += `
-            <li class="lista"> <img src="https://www.climatizacion-sustentable.com/wp-content/uploads/2021/06/wega-logo-web.jpg" alt="bba calor"> ${producto.tipo} - Volumen ${producto.ancho * producto.largo*1.4*1000} l   --> Costo U$d Oficial $${producto.preciousd}  </li>
+            <li class="lista"> <img src="https://www.climatizacion-sustentable.com/wp-content/uploads/2021/06/wega-logo-web.jpg" alt="bba calor"> ${producto.tipo} - Volumen ${producto.ancho * producto.largo * 1.4 * 1000} l   --> Costo U$d Oficial $${producto.preciousd}  </li>
             `
         }
     }
